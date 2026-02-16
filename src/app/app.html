@@ -13,22 +13,16 @@
     </div>
 
     <div class="flex gap-3 border-l border-white/30 pl-8 text-[10px]">
-      <button (click)="setLanguage('fr')" [class.font-bold]="currentLang === 'fr'" class="hover:opacity-70 transition">FR</button>
+      <button (click)="setLanguage('fr')" [class.font-bold]="currentLang === 'fr'" class="hover:opacity-70 transition cursor-pointer">FR</button>
       <span class="opacity-30">|</span>
-      <button (click)="setLanguage('en')" [class.font-bold]="currentLang === 'en'" class="hover:opacity-70 transition">EN</button>
+      <button (click)="setLanguage('en')" [class.font-bold]="currentLang === 'en'" class="hover:opacity-70 transition cursor-pointer">EN</button>
     </div>
   </div>
 </nav>
 
 <main>
   <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-900">
-    <video
-      autoplay
-      muted
-      loop
-      playsinline
-      poster="images/hero-brela.jpeg"
-      class="absolute inset-0 w-full h-full object-cover opacity-50">
+    <video autoplay muted loop playsinline poster="images/hero-brela.jpeg" class="absolute inset-0 w-full h-full object-cover opacity-50">
       <source src="images/reel_1.mp4" type="video/mp4">
       <img src="images/hero-brela.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="Villa Brela Sunset">
     </video>
@@ -102,8 +96,7 @@
 
   <section id="contact" class="py-32 bg-slate-900 text-white px-6">
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-24">
-
-      <div class="space-y-12 text-white">
+      <div class="space-y-12">
         <h2 class="text-5xl md:text-6xl font-serif italic leading-tight text-white">
           {{ currentLang === 'fr' ? 'Réservez en direct,' : 'Book direct,' }}<br>
           {{ currentLang === 'fr' ? 'payez moins cher.' : 'pay less.' }}
@@ -114,47 +107,50 @@
               <p class="text-[10px] uppercase tracking-[0.4em] text-blue-400 font-bold mb-2">WhatsApp / Direct Call</p>
               <a href="tel:+33769652702" class="text-3xl font-light text-white no-underline italic hover:text-blue-400 transition">+33 7 69 65 27 02</a>
             </div>
-
             <div>
               <p class="text-[10px] uppercase tracking-[0.4em] text-pink-400 font-bold mb-2">Instagram</p>
-              <a href="https://www.instagram.com/villa.brela.sunset/" target="_blank" class="text-lg font-light text-white no-underline hover:underline">
-                @villa.brela.sunset
-              </a>
-            </div>
-
-            <div class="pt-6 border-t border-white/10">
-              <p class="text-[10px] uppercase tracking-[0.4em] text-slate-400 font-bold mb-4">
-                {{ currentLang === 'fr' ? 'Également disponible sur' : 'Also available on' }}
-              </p>
-              <div class="flex gap-4">
-                <a href="https://www.booking.com/hotel/tn/villa-brela-sunset.fr.html" target="_blank" class="text-[9px] border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition uppercase tracking-widest no-underline text-white font-bold">Booking.com</a>
-                <a href="https://www.airbnb.fr/rooms/1527681257452997583" target="_blank" class="text-[9px] border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition uppercase tracking-widest no-underline text-white font-bold">Airbnb</a>
-              </div>
+              <a href="https://www.instagram.com/villa.brela.sunset/" target="_blank" class="text-lg font-light text-white no-underline hover:underline">@villa.brela.sunset</a>
             </div>
         </div>
       </div>
 
       <div class="bg-white p-12 text-slate-900 shadow-2xl rounded-sm">
-        <form action="https://formspree.io/f/xdalapjk" method="POST" class="space-y-8">
+        <form ngNoForm action="https://formspree.io/f/xdalapjk" method="POST" class="space-y-8">
           <div class="grid grid-cols-2 gap-8">
             <div class="space-y-2">
               <label class="text-[9px] uppercase tracking-widest font-bold text-slate-400 italic">{{ currentLang === 'fr' ? 'Arrivée' : 'Check-in' }}</label>
-              <input type="date" name="Arrivee" required class="w-full border-b border-slate-200 py-3 outline-none focus:border-black text-sm transition bg-white">
+              <input type="date" name="Arrivee" [(ngModel)]="dateArrivee" (change)="calculerPrix()" required class="w-full border-b border-slate-200 py-3 outline-none text-sm bg-white text-slate-900">
             </div>
             <div class="space-y-2">
               <label class="text-[9px] uppercase tracking-widest font-bold text-slate-400 italic">{{ currentLang === 'fr' ? 'Départ' : 'Check-out' }}</label>
-              <input type="date" name="Depart" required class="w-full border-b border-slate-200 py-3 outline-none focus:border-black text-sm transition bg-white">
+              <input type="date" name="Depart" [(ngModel)]="dateDepart" (change)="calculerPrix()" required class="w-full border-b border-slate-200 py-3 outline-none text-sm bg-white text-slate-900">
             </div>
           </div>
 
-          <input type="text" name="Nom" [placeholder]="currentLang === 'fr' ? 'Nom Complet' : 'Full Name'" required class="w-full border-b py-3 outline-none text-slate-900 text-sm bg-white">
-          <div class="grid md:grid-cols-2 gap-8">
-            <input type="email" name="email" placeholder="Email" required class="w-full border-b py-3 outline-none text-slate-900 text-sm bg-white">
-            <input type="tel" name="phone" [placeholder]="currentLang === 'fr' ? 'Téléphone' : 'Phone'" required class="w-full border-b py-3 outline-none text-slate-900 text-sm bg-white">
+          <div *ngIf="prixFinal > 0" class="bg-slate-50 p-6 rounded-sm border-l-4 border-green-500">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] uppercase tracking-widest font-bold text-slate-400">{{ nuits }} Nuits</span>
+              <span class="text-xs line-through text-slate-400">{{ prixInitial }}€</span>
+            </div>
+            <div class="flex justify-between items-end">
+              <div>
+                <p class="text-[9px] uppercase font-bold text-green-600 tracking-widest mb-1">{{ currentLang === 'fr' ? 'Tarif Direct (-10%)' : 'Direct Rate (-10%)' }}</p>
+                <p class="text-3xl font-serif italic text-slate-900">{{ prixFinal }}€</p>
+              </div>
+            </div>
+            <input type="hidden" name="Prix_Calcule" [value]="prixFinal + '€'">
           </div>
-          <textarea name="Message" [placeholder]="currentLang === 'fr' ? 'Votre message...' : 'Your message...'" class="w-full border-b py-3 outline-none h-28 text-slate-900 text-sm bg-white"></textarea>
 
-          <button type="submit" class="w-full bg-slate-900 text-white py-6 text-[11px] uppercase tracking-widest font-bold hover:bg-slate-800 transition-all">
+          <input type="text" name="Nom" [placeholder]="currentLang === 'fr' ? 'Nom Complet' : 'Full Name'" required class="w-full border-b py-3 outline-none text-sm bg-white text-slate-900">
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <input type="email" name="_replyto" placeholder="Email" required class="w-full border-b py-3 outline-none text-sm bg-white text-slate-900">
+            <input type="tel" name="phone" [placeholder]="currentLang === 'fr' ? 'Téléphone' : 'Phone'" required class="w-full border-b py-3 outline-none text-sm bg-white text-slate-900">
+          </div>
+
+          <textarea name="message" [placeholder]="currentLang === 'fr' ? 'Votre message...' : 'Your message...'" class="w-full border-b py-3 outline-none h-28 text-sm bg-white text-slate-900"></textarea>
+
+          <button type="submit" class="w-full bg-slate-900 text-white py-6 text-[11px] uppercase tracking-widest font-bold hover:bg-slate-800 transition-all cursor-pointer">
             {{ currentLang === 'fr' ? 'Vérifier la disponibilité' : 'Check Availability' }}
           </button>
         </form>
@@ -162,7 +158,6 @@
     </div>
   </section>
 </main>
-
 <footer class="bg-white border-t border-slate-100 pt-20 pb-10 px-6">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
