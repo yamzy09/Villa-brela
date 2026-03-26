@@ -14,11 +14,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          cat >> ~/.ssh/known_hosts << 'EOF'
-          |1|ePUUCCNOhAdtoNZoyB2DGzzZlNQ=|9+SOWnQX8elecbR29HXKs21qzrk= ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrQSxx8L3guEm29FOiftsVaZM+/0h3oc4h+AXz51LKZtUV2fr/owAsR+/KNw9N5rJksyOuVYM7idrEd0Lkz6G5zqTAPXBi8FPnmJ5WsBBW+bIAXhb5mX3if7kyqI3hbQd6BEI80/C/3fu5tykcZRSmdMxOL7jbI0Bkf3y49JqM1EKCbB7juik6uUb0aq0M2gnIbB2WAGtpVW9FOmmj9aew7/yUdqUQWaJ0wWtX5lDLcDcFfq5FgWX+PHvum0+DLSA30i+bAi7U9lhG8ZVMObMQn1g8jH7JUbSMg8/0oa6CHNKCJJ3Ssww/elohGhMTfzYSSqzCyGVh8J+zs0bwc9HHa44R1MwrbnOW//TGDmtlI/3STTjnOy20RYyanE+WXZwznYOFV3YnFoLdqbZH6hPGDzctZnY1L5IaTwST96TxdA5dq7ZQ2ZJWBmAziV4w1SqnZwBu4vuSvoLWnsyAvF0C239LbKA99FtRYbwrgDHR0Y8/ZF/aD6DCDPDlOJ73Vls=
-          |1|j6DyM6hb5kvSH1b21RurE7EZFFs=|s9tbEyBxoIwW2S2KdMEZNCWp3UQ= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBD7d0M5uAkDfGx7awJxJTMbM/NYnIdK4/YpMLYGep3jGfI5SS4hNkKqsamm9DCN2mIBBVIXtcpUvipwoFLdZBuw=
-          |1|j4hUyKIW+RwDzVy5AWdmQzK1BQo=|oIMCZvIkfSfTYiKww9DN33ubW1Q= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICA2NmC40lemAMBQ6UVCTxtnuk3lillgyPc1OzTkwcbg
-          EOF
+          ssh-keyscan -H 51.178.54.151 >> ~/.ssh/known_hosts
           ssh -i ~/.ssh/deploy_key root@51.178.54.151 "bash /var/www/villa-brela-sunset.com/deploy.sh"
