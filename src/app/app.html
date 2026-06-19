@@ -8,6 +8,8 @@
   <div class="flex items-center gap-10">
     <div class="space-x-10 text-[10px] uppercase tracking-[0.2em] hidden md:flex items-center font-medium">
       <a href="#propos" class="text-white no-underline hover:text-slate-300 transition">{{ currentLang === 'fr' ? 'La Villa' : 'The Villa' }}</a>
+      <a href="#galerie" class="text-white no-underline hover:text-slate-300 transition">{{ currentLang === 'fr' ? 'Galerie' : 'Gallery' }}</a>
+      <a href="#tarifs" class="text-white no-underline hover:text-slate-300 transition">{{ currentLang === 'fr' ? 'Tarifs' : 'Rates' }}</a>
       <a href="#experiences" class="text-white no-underline hover:text-slate-300 transition">{{ currentLang === 'fr' ? 'Expériences' : 'Experiences' }}</a>
       <a href="#contact" class="text-white no-underline hover:text-slate-300 transition">{{ currentLang === 'fr' ? 'Réserver' : 'Book Now' }}</a>
     </div>
@@ -21,6 +23,8 @@
 </nav>
 
 <main>
+
+  <!-- HERO -->
   <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-900">
     <video autoplay muted loop playsinline poster="images/hero-brela.jpeg" class="absolute inset-0 w-full h-full object-cover opacity-50">
       <source src="images/reel_1.mp4" type="video/mp4">
@@ -33,9 +37,18 @@
       <p class="text-sm md:text-xl italic opacity-90 text-white">
         {{ currentLang === 'fr' ? '"L\'horizon pour seul témoin."' : '"The horizon as your only witness."' }}
       </p>
+      <a href="#galerie" class="mt-12 inline-block text-[10px] uppercase tracking-[0.4em] border border-white/40 text-white px-8 py-4 hover:bg-white hover:text-slate-900 transition-all duration-500 no-underline">
+        {{ currentLang === 'fr' ? 'Découvrir' : 'Discover' }}
+      </a>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+      <span class="text-white text-[9px] uppercase tracking-[0.4em]">Scroll</span>
+      <div class="w-px h-12 bg-white/50 animate-pulse"></div>
     </div>
   </section>
 
+  <!-- À PROPOS -->
   <section id="propos" class="py-32 px-6 bg-white">
     <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
       <div class="space-y-10">
@@ -50,15 +63,22 @@
             ? 'Perchée sur les hauteurs de Metline, la Villa Brela Sunset est une ode à la Méditerranée. Entre architecture minérale et piscine à débordement, chaque détail invite à la contemplation. Idéale pour 4 personnes.'
             : 'Perched on the heights of Metline, Villa Brela Sunset is an ode to the Mediterranean. Between mineral architecture and infinity pool, every detail invites contemplation. Ideal for 4 people.' }}
         </p>
-        <div class="grid grid-cols-2 gap-12 pt-8 border-t border-slate-100">
-            <div class="space-y-2 text-slate-900">
-              <h4 class="text-[10px] font-bold uppercase tracking-widest">{{ currentLang === 'fr' ? 'Espaces' : 'Spaces' }}</h4>
-              <p class="text-sm text-slate-500 italic">1 Suite Parentale + 1 {{ currentLang === 'fr' ? 'Chambre' : 'Bedroom' }}</p>
-            </div>
-            <div class="space-y-2 text-slate-900">
-              <h4 class="text-[10px] font-bold uppercase tracking-widest">{{ currentLang === 'fr' ? 'Prestations' : 'Amenities' }}</h4>
-              <p class="text-sm text-slate-500 italic">{{ currentLang === 'fr' ? 'Piscine Débordement' : 'Infinity Pool' }}</p>
-            </div>
+        <div class="grid grid-cols-3 gap-8 pt-8 border-t border-slate-100">
+          <div class="space-y-2 text-slate-900">
+            <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ currentLang === 'fr' ? 'Espaces' : 'Spaces' }}</h4>
+            <p class="text-2xl font-serif italic">4</p>
+            <p class="text-xs text-slate-500">{{ currentLang === 'fr' ? 'Personnes max.' : 'Guests max.' }}</p>
+          </div>
+          <div class="space-y-2 text-slate-900">
+            <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ currentLang === 'fr' ? 'Chambres' : 'Bedrooms' }}</h4>
+            <p class="text-2xl font-serif italic">2</p>
+            <p class="text-xs text-slate-500">{{ currentLang === 'fr' ? 'Suite + Chambre' : 'Suite + Bedroom' }}</p>
+          </div>
+          <div class="space-y-2 text-slate-900">
+            <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ currentLang === 'fr' ? 'Piscine' : 'Pool' }}</h4>
+            <p class="text-2xl font-serif italic">∞</p>
+            <p class="text-xs text-slate-500">{{ currentLang === 'fr' ? 'À débordement' : 'Infinity' }}</p>
+          </div>
         </div>
       </div>
       <div class="relative overflow-hidden shadow-2xl">
@@ -67,6 +87,136 @@
     </div>
   </section>
 
+  <!-- GALERIE -->
+  <section id="galerie" class="py-32 bg-slate-950 px-6">
+    <div class="max-w-7xl mx-auto">
+      <header class="text-center mb-20">
+        <h2 class="text-xs uppercase tracking-[0.4em] text-slate-500 font-bold mb-4 italic">{{ currentLang === 'fr' ? 'Galerie' : 'Gallery' }}</h2>
+        <h3 class="text-5xl font-serif italic text-white">{{ currentLang === 'fr' ? 'Chaque angle, un tableau.' : 'Every angle, a masterpiece.' }}</h3>
+      </header>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+        <div *ngFor="let photo of galerie; let i = index"
+             (click)="ouvrirLightbox(i)"
+             class="relative overflow-hidden cursor-pointer group"
+             [class.md:col-span-2]="i === 0"
+             [class.md:row-span-2]="i === 0">
+          <img [src]="photo.src" [alt]="photo.alt"
+               class="w-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80"
+               [class.h-96]="i === 0"
+               [class.h-52]="i !== 0">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition duration-500 flex items-center justify-center">
+            <span class="text-white text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition duration-500">
+              {{ currentLang === 'fr' ? 'Voir' : 'View' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <button (click)="ouvrirLightbox(0)" class="text-[10px] uppercase tracking-[0.4em] border border-white/20 text-white px-8 py-4 hover:bg-white hover:text-slate-900 transition-all duration-500 cursor-pointer">
+          {{ currentLang === 'fr' ? 'Voir toutes les photos' : 'View all photos' }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div *ngIf="lightboxOuverte"
+       class="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center"
+       (click)="fermerLightbox()">
+    <button (click)="fermerLightbox()" class="absolute top-6 right-8 text-white text-3xl opacity-60 hover:opacity-100 transition cursor-pointer z-10">✕</button>
+    <button (click)="$event.stopPropagation(); photoPrecedente()" class="absolute left-6 text-white text-4xl opacity-60 hover:opacity-100 transition cursor-pointer z-10">‹</button>
+    <button (click)="$event.stopPropagation(); photoSuivante()" class="absolute right-6 text-white text-4xl opacity-60 hover:opacity-100 transition cursor-pointer z-10">›</button>
+
+    <div class="max-w-5xl max-h-screen px-16 py-12" (click)="$event.stopPropagation()">
+      <img [src]="galerie[photoActive].src" [alt]="galerie[photoActive].alt"
+           class="max-h-[80vh] max-w-full object-contain mx-auto shadow-2xl">
+      <p class="text-center text-white/50 text-xs uppercase tracking-widest mt-6">
+        {{ galerie[photoActive].alt }} — {{ photoActive + 1 }} / {{ galerie.length }}
+      </p>
+    </div>
+  </div>
+
+  <!-- ÉQUIPEMENTS -->
+  <section id="equipements" class="py-32 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <header class="text-center mb-20">
+        <h2 class="text-xs uppercase tracking-[0.4em] text-slate-400 font-bold mb-4 italic">{{ currentLang === 'fr' ? 'Prestations' : 'Amenities' }}</h2>
+        <h3 class="text-5xl font-serif italic text-slate-900">{{ currentLang === 'fr' ? 'Le confort pensé dans les moindres détails.' : 'Comfort crafted in every detail.' }}</h3>
+      </header>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-0 border border-slate-100">
+        <div *ngFor="let eq of equipements" class="p-8 border border-slate-100 hover:bg-slate-50 transition group">
+          <div class="text-2xl mb-4">{{ eq.icon }}</div>
+          <h4 class="text-xs uppercase tracking-[0.3em] font-bold text-slate-900 mb-2">{{ currentLang === 'fr' ? eq.fr : eq.en }}</h4>
+          <p class="text-xs text-slate-400 font-light">{{ currentLang === 'fr' ? eq.descFr : eq.descEn }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" class="py-32 bg-slate-950 px-6 text-white">
+    <div class="max-w-5xl mx-auto">
+      <header class="text-center mb-20">
+        <h2 class="text-xs uppercase tracking-[0.4em] text-slate-500 font-bold mb-4 italic">{{ currentLang === 'fr' ? 'Tarifs' : 'Rates' }}</h2>
+        <h3 class="text-5xl font-serif italic text-white">{{ currentLang === 'fr' ? 'Réservez en direct, économisez 10%.' : 'Book direct, save 10%.' }}</h3>
+      </header>
+
+      <div class="grid md:grid-cols-3 gap-px bg-white/10">
+        <div class="bg-slate-950 p-10 text-center space-y-6 hover:bg-slate-900 transition">
+          <h4 class="text-[10px] uppercase tracking-[0.4em] text-slate-400 font-bold">{{ currentLang === 'fr' ? 'Basse Saison' : 'Low Season' }}</h4>
+          <p class="text-xs text-slate-500 italic">{{ currentLang === 'fr' ? 'Oct — Avr' : 'Oct — Apr' }}</p>
+          <div>
+            <p class="text-slate-500 line-through text-sm mb-1">244 €</p>
+            <p class="text-5xl font-serif italic">220 €</p>
+            <p class="text-xs text-slate-400 mt-2">{{ currentLang === 'fr' ? '/ nuit avec code DIRECT' : '/ night with code DIRECT' }}</p>
+          </div>
+          <a href="#contact" class="block text-[10px] uppercase tracking-widest border border-white/20 py-4 hover:bg-white hover:text-slate-900 transition no-underline text-white">
+            {{ currentLang === 'fr' ? 'Réserver' : 'Book' }}
+          </a>
+        </div>
+
+        <div class="bg-slate-900 p-10 text-center space-y-6 relative border border-white/20">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 text-[9px] uppercase tracking-widest font-bold px-4 py-1">
+            {{ currentLang === 'fr' ? 'Populaire' : 'Popular' }}
+          </div>
+          <h4 class="text-[10px] uppercase tracking-[0.4em] text-slate-300 font-bold">{{ currentLang === 'fr' ? 'Moyenne Saison' : 'Mid Season' }}</h4>
+          <p class="text-xs text-slate-400 italic">{{ currentLang === 'fr' ? 'Mai, Juin, Sep' : 'May, Jun, Sep' }}</p>
+          <div>
+            <p class="text-slate-400 line-through text-sm mb-1">289 €</p>
+            <p class="text-5xl font-serif italic text-amber-400">260 €</p>
+            <p class="text-xs text-slate-400 mt-2">{{ currentLang === 'fr' ? '/ nuit avec code DIRECT' : '/ night with code DIRECT' }}</p>
+          </div>
+          <a href="#contact" class="block text-[10px] uppercase tracking-widest bg-amber-400 text-slate-900 py-4 hover:bg-amber-300 transition no-underline font-bold">
+            {{ currentLang === 'fr' ? 'Réserver' : 'Book' }}
+          </a>
+        </div>
+
+        <div class="bg-slate-950 p-10 text-center space-y-6 hover:bg-slate-900 transition">
+          <h4 class="text-[10px] uppercase tracking-[0.4em] text-slate-400 font-bold">{{ currentLang === 'fr' ? 'Haute Saison' : 'High Season' }}</h4>
+          <p class="text-xs text-slate-500 italic">{{ currentLang === 'fr' ? 'Juil — Août' : 'Jul — Aug' }}</p>
+          <div>
+            <p class="text-slate-500 line-through text-sm mb-1">271 €</p>
+            <p class="text-5xl font-serif italic">244 €</p>
+            <p class="text-xs text-slate-400 mt-2">{{ currentLang === 'fr' ? '/ nuit avec code DIRECT' : '/ night with code DIRECT' }}</p>
+          </div>
+          <a href="#contact" class="block text-[10px] uppercase tracking-widest border border-white/20 py-4 hover:bg-white hover:text-slate-900 transition no-underline text-white">
+            {{ currentLang === 'fr' ? 'Réserver' : 'Book' }}
+          </a>
+        </div>
+      </div>
+
+      <p class="text-center text-slate-500 text-xs mt-10 italic">
+        {{ currentLang === 'fr'
+          ? '* Prix affichés après réduction de 10% avec le code DIRECT. Tarifs standards sans code : Basse 244€ • Moyenne 289€ • Haute 271€'
+          : '* Prices shown after 10% discount with code DIRECT. Standard rates without code: Low 244€ • Mid 289€ • High 271€' }}
+      </p>
+    </div>
+  </section>
+
+  <!-- EXPÉRIENCES -->
   <section id="experiences" class="py-32 bg-slate-50 px-6">
     <div class="max-w-7xl mx-auto">
       <header class="text-center mb-24 text-slate-900">
@@ -94,6 +244,7 @@
     </div>
   </section>
 
+  <!-- RÉSERVATION -->
   <section id="contact" class="py-32 bg-slate-900 text-white px-6">
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-24">
       <div class="space-y-12">
@@ -103,14 +254,22 @@
         </h2>
 
         <div class="bg-white/5 border border-white/10 p-8 rounded-sm space-y-8">
-            <div>
-              <p class="text-[10px] uppercase tracking-[0.4em] text-blue-400 font-bold mb-2">WhatsApp / Direct Call</p>
-              <a href="tel:+33769652702" class="text-3xl font-light text-white no-underline italic hover:text-blue-400 transition">+33 7 69 65 27 02</a>
-            </div>
-            <div>
-              <p class="text-[10px] uppercase tracking-[0.4em] text-pink-400 font-bold mb-2">Instagram</p>
-              <a href="https://www.instagram.com/villa.brela.sunset/" target="_blank" class="text-lg font-light text-white no-underline hover:underline">@villa.brela.sunset</a>
-            </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.4em] text-blue-400 font-bold mb-2">WhatsApp / Direct Call</p>
+            <a href="tel:+33769652702" class="text-3xl font-light text-white no-underline italic hover:text-blue-400 transition">+33 7 69 65 27 02</a>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.4em] text-pink-400 font-bold mb-2">Instagram</p>
+            <a href="https://www.instagram.com/villa.brela.sunset/" target="_blank" class="text-lg font-light text-white no-underline hover:underline">@villa.brela.sunset</a>
+          </div>
+        </div>
+
+        <div class="border border-white/10 p-8 space-y-4">
+          <p class="text-[10px] uppercase tracking-[0.4em] text-slate-400 font-bold mb-6">{{ currentLang === 'fr' ? 'Pourquoi réserver en direct ?' : 'Why book direct?' }}</p>
+          <div *ngFor="let avantage of avantagesDirect" class="flex items-start gap-4">
+            <span class="text-amber-400 text-sm mt-0.5">✓</span>
+            <p class="text-sm text-slate-300 font-light">{{ currentLang === 'fr' ? avantage.fr : avantage.en }}</p>
+          </div>
         </div>
       </div>
 
@@ -127,15 +286,19 @@
             </div>
           </div>
 
-          <div *ngIf="prixFinal > 0" class="bg-slate-50 p-6 rounded-sm border-l-4 border-green-500">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-[10px] uppercase tracking-widest font-bold text-slate-400">{{ nuits }} Nuits</span>
+          <div *ngIf="prixFinal > 0" class="bg-slate-50 p-6 rounded-sm border-l-4 border-amber-400">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-[10px] uppercase tracking-widest font-bold text-slate-400">{{ nuits }} {{ currentLang === 'fr' ? 'Nuits' : 'Nights' }}</span>
               <span class="text-xs line-through text-slate-400">{{ prixInitial }}€</span>
             </div>
             <div class="flex justify-between items-end">
               <div>
-                <p class="text-[9px] uppercase font-bold text-green-600 tracking-widest mb-1">{{ currentLang === 'fr' ? 'Tarif Direct (-10%)' : 'Direct Rate (-10%)' }}</p>
+                <p class="text-[9px] uppercase font-bold text-amber-600 tracking-widest mb-1">{{ currentLang === 'fr' ? 'Tarif Direct (-10%)' : 'Direct Rate (-10%)' }}</p>
                 <p class="text-3xl font-serif italic text-slate-900">{{ prixFinal }}€</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[9px] uppercase tracking-widest text-green-600 font-bold">{{ currentLang === 'fr' ? 'Économie' : 'Savings' }}</p>
+                <p class="text-lg font-serif italic text-green-600">-{{ economie }}€</p>
               </div>
             </div>
             <input type="hidden" name="Prix_Calcule" [value]="prixFinal + '€'">
@@ -157,7 +320,9 @@
       </div>
     </div>
   </section>
+
 </main>
+
 <footer class="bg-white border-t border-slate-100 pt-20 pb-10 px-6">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
@@ -171,6 +336,8 @@
         <h5 class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-900">{{ currentLang === 'fr' ? 'Navigation' : 'Quick Links' }}</h5>
         <ul class="space-y-2 text-xs text-slate-500 font-light uppercase tracking-widest list-none p-0">
           <li><a href="#propos" class="hover:text-black no-underline transition">{{ currentLang === 'fr' ? 'La Villa' : 'The Villa' }}</a></li>
+          <li><a href="#galerie" class="hover:text-black no-underline transition">{{ currentLang === 'fr' ? 'Galerie' : 'Gallery' }}</a></li>
+          <li><a href="#tarifs" class="hover:text-black no-underline transition">{{ currentLang === 'fr' ? 'Tarifs' : 'Rates' }}</a></li>
           <li><a href="#experiences" class="hover:text-black no-underline transition">{{ currentLang === 'fr' ? 'Expériences' : 'Experiences' }}</a></li>
           <li><a href="#contact" class="hover:text-black no-underline transition">{{ currentLang === 'fr' ? 'Disponibilités' : 'Check Availability' }}</a></li>
         </ul>
