@@ -62,7 +62,7 @@ export class App implements OnInit {
       let prixParNuit = 220; // Basse saison par défaut
 
       if (mois === 6 || mois === 7) {
-        prixParNuit = 300; // Juillet (6) - Août (7)
+        prixParNuit = 244; // Juillet (6) - Août (7)
       } else if (mois === 4 || mois === 5 || mois === 8) {
         prixParNuit = 260; // Mai (4), Juin (5), Septembre (8)
       }
