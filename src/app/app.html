@@ -91,6 +91,22 @@
           <p class="text-sm text-slate-600">{{ currentLang === 'fr' ? 'Randonnées uniques entre pins et falaises spectaculaires.' : 'Unique hikes between pine forests and dramatic cliffs.' }}</p>
         </article>
       </div>
+
+      <!-- SE DÉPLACER -->
+      <aside class="mt-24 max-w-3xl mx-auto border border-slate-200 bg-white p-10 text-slate-900 shadow-sm rounded-sm">
+        <h4 class="text-xs uppercase tracking-[0.4em] text-slate-400 font-bold mb-4">{{ currentLang === 'fr' ? 'Se déplacer' : 'Getting around' }}</h4>
+        <p class="text-2xl font-serif italic mb-4">{{ currentLang === 'fr' ? 'Une voiture pour explorer Bizerte et le Nord' : 'A car to explore Bizerte and the North' }}</p>
+        <p *ngIf="currentLang === 'fr'" class="text-sm text-slate-600 leading-relaxed">
+          Cap Zbib, Remel, Ghar El Melh ou les plages de Rafraf se découvrent bien mieux en voiture. Pour venir à la villa depuis l'aéroport, notre partenaire
+          <a href="https://g-rent.tn/location-voiture-aeroport-tunis-carthage/" class="underline text-slate-900 font-semibold">G-rent propose la location de voiture à l'aéroport Tunis-Carthage</a> :
+          KIA Picanto 2026, manuelle ou automatique, kilométrage illimité et assurance incluse, remise des clés à votre arrivée.
+        </p>
+        <p *ngIf="currentLang !== 'fr'" class="text-sm text-slate-600 leading-relaxed">
+          Cap Zbib, Remel, Ghar El Melh and the beaches of Rafraf are best explored by car. To reach the villa from the airport, our partner
+          <a href="https://g-rent.tn/en/car-rental-tunis-airport/" class="underline text-slate-900 font-semibold">G-rent offers car rental at Tunis-Carthage airport</a>:
+          2026 KIA Picanto, manual or automatic, unlimited mileage and insurance included, keys handed over on arrival.
+        </p>
+      </aside>
     </div>
   </section>
 
